@@ -1,0 +1,21 @@
+digraph "com.google.sps:portfolio:jar:1" { 
+	"com.google.sps:portfolio:jar:1" -> "javax.servlet:javax.servlet-api:jar:4.0.1:compile" ; 
+	"com.google.sps:portfolio:jar:1" -> "org.eclipse.jetty:jetty-server:jar:9.4.41.v20210516:compile" ; 
+	"com.google.sps:portfolio:jar:1" -> "org.eclipse.jetty:jetty-annotations:jar:9.4.41.v20210516:compile" ; 
+	"com.google.sps:portfolio:jar:1" -> "com.google.code.gson:gson:jar:2.8.6:compile" ; 
+	"org.eclipse.jetty:jetty-server:jar:9.4.41.v20210516:compile" -> "org.eclipse.jetty:jetty-http:jar:9.4.41.v20210516:compile" ; 
+	"org.eclipse.jetty:jetty-server:jar:9.4.41.v20210516:compile" -> "org.eclipse.jetty:jetty-io:jar:9.4.41.v20210516:compile" ; 
+	"org.eclipse.jetty:jetty-http:jar:9.4.41.v20210516:compile" -> "org.eclipse.jetty:jetty-util:jar:9.4.41.v20210516:compile" ; 
+	"org.eclipse.jetty:jetty-annotations:jar:9.4.41.v20210516:compile" -> "org.eclipse.jetty:jetty-plus:jar:9.4.41.v20210516:compile" ; 
+	"org.eclipse.jetty:jetty-annotations:jar:9.4.41.v20210516:compile" -> "org.eclipse.jetty:jetty-webapp:jar:9.4.41.v20210516:compile" ; 
+	"org.eclipse.jetty:jetty-annotations:jar:9.4.41.v20210516:compile" -> "javax.annotation:javax.annotation-api:jar:1.3.2:compile" ; 
+	"org.eclipse.jetty:jetty-annotations:jar:9.4.41.v20210516:compile" -> "org.ow2.asm:asm:jar:9.0:compile" ; 
+	"org.eclipse.jetty:jetty-annotations:jar:9.4.41.v20210516:compile" -> "org.ow2.asm:asm-commons:jar:9.0:compile" ; 
+	"org.eclipse.jetty:jetty-plus:jar:9.4.41.v20210516:compile" -> "org.eclipse.jetty:jetty-jndi:jar:9.4.41.v20210516:compile" ; 
+	"org.eclipse.jetty:jetty-webapp:jar:9.4.41.v20210516:compile" -> "org.eclipse.jetty:jetty-xml:jar:9.4.41.v20210516:compile" ; 
+	"org.eclipse.jetty:jetty-webapp:jar:9.4.41.v20210516:compile" -> "org.eclipse.jetty:jetty-servlet:jar:9.4.41.v20210516:compile" ; 
+	"org.eclipse.jetty:jetty-servlet:jar:9.4.41.v20210516:compile" -> "org.eclipse.jetty:jetty-security:jar:9.4.41.v20210516:compile" ; 
+	"org.eclipse.jetty:jetty-servlet:jar:9.4.41.v20210516:compile" -> "org.eclipse.jetty:jetty-util-ajax:jar:9.4.41.v20210516:compile" ; 
+	"org.ow2.asm:asm-commons:jar:9.0:compile" -> "org.ow2.asm:asm-tree:jar:9.0:compile" ; 
+	"org.ow2.asm:asm-commons:jar:9.0:compile" -> "org.ow2.asm:asm-analysis:jar:9.0:compile" ; 
+ } 

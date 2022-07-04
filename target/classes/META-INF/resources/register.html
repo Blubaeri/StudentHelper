@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Register</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js"></script>
+  </head>
+  <body>
+    <div id="content">
+      <h1>Register</h1>
+      <h2>SPS Team 11</h2>
+      <p>This is the register page.</p>
+      <form action="/register-handler" method="POST">
+        <p>Enter your name(s):</p>
+        <textarea name="names">Name(s)</textarea>
+        <br/><br/>
+        <p>Enter your last name(s):</p>
+        <textarea name="lastNames">Last name(s)</textarea>
+        <br/><br/>
+        <p>Enter your new username:</p>
+        <textarea name="username">Username</textarea>
+        <br/><br/>
+        <p>Enter your new password:</p>
+        <textarea name="password">Password</textarea>
+        <br/><br/>
+        <input type="submit" />
+      </form>
+    </div>
+  </body>
+</html>
