@@ -31,7 +31,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /** Servlet responsible for listing tasks. */
-@WebServlet("/login-submissions")
+@WebServlet("/login-handler")
 public class LoginSubmissions extends HttpServlet {
 
   @Override
@@ -41,7 +41,7 @@ public class LoginSubmissions extends HttpServlet {
         Query.newEntityQueryBuilder().setKind("Task").setOrderBy(OrderBy.desc("timestamp")).build();
     QueryResults<Entity> results = datastore.run(query);
 
-    List<Task> subs = new ArrayList<>();
+    List<Task> tasks = new ArrayList<>();
     while (results.hasNext()) {
       Entity entity = results.next();
 
@@ -49,8 +49,8 @@ public class LoginSubmissions extends HttpServlet {
       String clientName = request.getParameter("clientName");
       String clientPassword = request.getParameter("clientPassword");
 
-      Task sub = new Task(id, clientName, clientPassword);
-      subs.add(sub);
+      Task task = new Task(id, clientName, clientPassword);
+      tasks.add(sub);
     }
 
     Gson gson = new Gson();
