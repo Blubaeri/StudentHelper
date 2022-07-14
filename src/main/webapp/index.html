@@ -6,25 +6,23 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <meta name="description" content="" />
   <link rel="stylesheet" type="text/css" href="style.css" />
+  <script src="script.js"></script>
 </head>
 
-<body>
-  <div id="leftRect"></div>
-  <div id="middleRect"></div>
-  <div id="rightRect"></div>
-  <div id="line"></div>
-  <div id="tasks">Tasks</div>
-  <div id="upcoming">Upcoming</div>
+<body onload="loadTasks()">
   <section>
-    <div id="checkboxTasks">
-      <input type="checkbox" id="checkbox1" name="checkbox1" value="one">
-      <label for="checkbox1"> Check the box</label><br>
-      <input type="checkbox" id="checkbox2" name="checkbox2" value="two">
-      <label for="checkbox2"> Uncheck the box</label><br>
-    </div>
-    <input type="text" class="textLeft">
-    <input type="text" class="textRight">
+    <div id="habits"></div>
+    <div id="border"></div>
+    <div id="habitsTitle">Habits</div>
+    <div id="inputText">Enter habits and how long they have been done for below</div>
     </div>
   </section>
+    <form method="POST" action="/new-task">
+      <input type="text" name="title" />
+      <br/>
+      <button>Submit</button>
+    </form>
+    <hr/>
+    <ul id="task-list"></ul>
 </body>
 </html>
