@@ -1,4 +1,4 @@
-main/java/Task.class
 main/java/com/google/sps/servlets/HelloWorldServlet.class
-com/google/sps/ServerMain.class
 main/java/com/google/sps/servlets/RegisterHandlerServlet.class
+main/java/Task.class
+com/google/sps/ServerMain.class
