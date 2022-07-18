@@ -27,6 +27,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.time.LocalDate;
+import java.time.Month;
 
 /** Servlet responsible for listing time breakdown. */
 @WebServlet("/time-breakdown")
@@ -36,12 +38,18 @@ public class ListRecordsServlet extends HttpServlet {
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
     Datastore datastore = DatastoreOptions.getDefaultInstance().getService();
     
-    // TODO: add time (today, this month, this year...) and user as a filter to fetch data 
+    // TODO: add userid as a filter to fetch data 
     String userId;
-    String date;
+
+    // get today's date as int
+    LocalDate currentdate = LocalDate.now();
+    int currentDay = currentdate.getDayOfMonth();
+    int currentMonth = currentdate.getMonth().getValue();
+    int currentYear = currentdate.getYear();
     Query<Entity> query = Query.newEntityQueryBuilder().setKind("Record")
         .setFilter(CompositeFilter.and(
-            PropertyFilter.eq("userId", userId), PropertyFilter.eq("date", date)))
+            PropertyFilter.eq("userId", userId), PropertyFilter.eq("year", currentYear),
+            PropertyFilter.eq("month", currentMonth), PropertyFilter.eq("day", currentDay)))
         .build();
     QueryResults<Entity> results = datastore.run(query);
 
@@ -52,7 +60,7 @@ public class ListRecordsServlet extends HttpServlet {
       // each Record entity should at least have the following properties: 
       // catagory(String), time(Double), userId(String), date(String)
       String catagory = entity.getString("catagory");
-      long time = entity.getLong("time");
+      long time = entity.getDouble("time");
       if (recordSum.containsKey(catagory)) {
         recordSum.replace(catagory, recordSum.get(catagory) + time);
       } else {
