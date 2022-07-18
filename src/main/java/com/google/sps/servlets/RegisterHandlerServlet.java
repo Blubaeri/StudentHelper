@@ -18,47 +18,32 @@ import java.util.List;
 import main.java.Task;
 import com.google.gson.Gson;
 import java.util.Base64;
-import org.apache.commons.validator.routines.EmailValidator;
 
 @WebServlet("/register-handler")
 public class RegisterHandlerServlet extends HttpServlet {
   private static String names;
-  private static String lastNames;
-    
-  /*
+  private static String lastNames;    
+
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    response.setContentType("text/html;");
-    if (!newUsername) {
-        response.getWriter().println("<p>The username you entered already exists.</p>");
-    }
-    else if (!newEmail) {
-        response.getWriter().println("<p>The email you entered already exists.</p>");
-    }
+    doPost(request, response);
   }
-  */
 
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
     // Get the values entered in the form:
-    names = request.getParameter("names");
-    lastNames = request.getParameter("lastNames");
-    String email = request.getParameter("email");
     String username = request.getParameter("username");
     String password = request.getParameter("password");
+    String confirmPassword = request.getParameter("confirmPassword");
     long timestamp = System.currentTimeMillis();
     String encodedPassword = Base64.getEncoder().encodeToString(password.getBytes());
     boolean newUsername = true;
-    boolean newEmail = true;
-    //boolean validUsername = true;
+    boolean validUsername = true;
     boolean validEmail = true;
     boolean nullProperty = false;
 
     // Print the value so you can see it in the server logs:
-    System.out.println("Your name(s): " + names);
-    System.out.println("Your last name(s): " + lastNames);
     System.out.println("Your username: " + username);
-    System.out.println("Your email: " + email);
     System.out.println("Your password: " + encodedPassword);
     System.out.println("Your timestamp: " + timestamp);
 
@@ -78,7 +63,6 @@ public class RegisterHandlerServlet extends HttpServlet {
         String previousNames = entity.getString("names");
         String previousLastNames = entity.getString("lastNames");
         */
-        String previousEmail = entity.getString("email");
         String previousUsername = entity.getString("username");
         //long previousTimestamp = entity.getLong("timestamp");
 
@@ -92,11 +76,6 @@ public class RegisterHandlerServlet extends HttpServlet {
             newUsername = false;
             break;
         }
-
-        if (previousEmail.equals(email)) {
-            newEmail = false;
-            break;
-        }
     }
 
     /*
@@ -108,30 +87,18 @@ public class RegisterHandlerServlet extends HttpServlet {
     }
     */
 
-    //Create the EmailValidator instance:
-    EmailValidator validator = EmailValidator.getInstance();
-    //Check for valid email addresses using isValid method:
-    validEmail = validator.isValid(email);
-
     if (!newUsername) {
-        response.sendRedirect("wrongUsername.html");
+        response.setContentType("text/html;");
+        response.getWriter().println("The username you entered already exists.");
+        response.sendRedirect("register.html");
     }
-    else if (!newEmail) {
-        response.sendRedirect("wrongEmail.html");
-    }
-    else if (!validEmail) {
-        response.sendRedirect("invalidEmail.html");
-    }
-    else if (names.isEmpty() || lastNames.isEmpty() || username.isEmpty()
-    || email.isEmpty() || password.isEmpty()) {
+    else if (username.isEmpty() || password.isEmpty()
+    || confirmPassword.isEmpty()) {
         response.sendRedirect("emptyField.html");
     }
     else{
         FullEntity taskEntity =
             Entity.newBuilder(keyFactory.newKey())
-                .set("names", names)
-                .set("lastNames", lastNames)
-                .set("email", email)
                 .set("username", username)
                 .set("password", encodedPassword)
                 .set("timestamp", timestamp)

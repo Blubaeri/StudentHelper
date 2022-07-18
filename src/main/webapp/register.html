@@ -25,34 +25,17 @@
       <p>This is the register page.</p>
       -->
       <form action="/register-handler" method="POST">
-        <p>Enter your name(s):</p>
-        <input type="text" name="names" placeholder="Name(s)">
-        <!--
-        <textarea name="names">Name(s)</textarea>
-        -->
-        <br/>
-        <p>Enter your last name(s):</p>
-        <input type="text" name="lastNames" placeholder="Last name(s)">
-        <!--
-        <textarea name="lastNames">Last name(s)</textarea>
-        -->
-        <br/>
-        <p>Enter your email:</p>
-        <input type="text" name="email" placeholder="Email">
-        <br/>
         <p>Enter your new username:</p>
-        <input type="text" name="username" placeholder="Username">
-        <!--
-        <textarea name="username">Username</textarea>
-        -->
-        <br/>
+        <input type="text" name="username" placeholder="Username" required="required" maxlength="16">
+        <br/><br/>
         <p>Enter your new password:</p>
-        <input type="text" name="password" placeholder="Password">
-        <!-- 
-        <textarea name="password">Password</textarea>
-        -->
-        <br/>
-        <input type="submit" />
+        <input type="password" name="password" placeholder="Password" required="required" maxlength="16">
+        <br/><br/>
+        <p>Confirm your password:</p>
+        <input type="password" name="confirmPassword" placeholder="Confirm password" required="required" maxlength="16">
+        <br/><br/>
+        <input type="submit" onclick="showMessage();" />
+        <p id="message-container"></p>
       </form>
       <p>Or go back to the <a href="index.html">index page</a>.</p>
     </div>

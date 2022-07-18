@@ -13,9 +13,10 @@
 // limitations under the License.
 
 /** Fetches stats from the server and adds them to the page. */
-  async function getMessages() {
+  async function showMessage() {
     //const responseFromServer = await fetch('/hello');
     const responseFromServer = await fetch('/register-handler');
+    //const textFromResponse = await responseFromServer.headers();
     // The json() function returns an object that contains fields that we can
     // reference to create HTML.
     //const messages = await responseFromServer.json();
@@ -30,6 +31,6 @@
     //response = messages[randomKey];
   
     //const messagesElement = document.getElementById('messages-container');
-    const warningElement = document.getElementById('warning-container');
-    warningElement.innerText = responseFromServer;
+    const messageElement = document.getElementById('message-container');
+    messageElement.innerText = textFromResponse;
   }
