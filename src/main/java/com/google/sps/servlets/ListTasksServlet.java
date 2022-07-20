@@ -33,9 +33,10 @@ public class ListTasksServlet extends HttpServlet {
 
       long id = entity.getKey().getId();
       String title = entity.getString("title");
+      String duration = entity.getString("duration");
       long timestamp = entity.getLong("timestamp");
 
-      Task task = new Task(id, title, timestamp);
+      Task task = new Task(id, title, duration, timestamp);
       tasks.add(task);
     }
 

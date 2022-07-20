@@ -1,14 +1,3 @@
-#checkboxTasks{
-    position: relative;
-    left: 350px;
-    top: 120px;
-
-}
-
-section{
-
-}
-
 #habits{
     position: absolute;
     width: 1220px;
@@ -65,23 +54,41 @@ body{
     background-color: #C7C7C7;
 }
 
-input[type=text]{
+input[type=text].title{
     border-style: none;
     position: absolute;
-    width: 1220px;
+    width: 540px;
     height: 99px;
     left: 301px;
     top: 800px;
     background: #ECECEC;
     border-radius: 25px;
+    border-style: solid;
+    font-size: 36px;
+}
+
+input[type=text].duration{
+    border-style: none;
+    position: absolute;
+    width: 540px;
+    height: 99px;
+    left:855px;
+    top: 800px;
+    background: #ECECEC;
+    border-radius: 25px;
+    border-style: solid;
     font-size: 36px;
 }
 
 #task-list {
     list-style-type: none;
     position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
     left: 300px;
     top: 10px;
+    max-height: 600px;
 }
   
 .task {
@@ -91,17 +98,17 @@ input[type=text]{
     padding: 10px;
     width: 300px;
     height: 50px;
+    border-radius: 25px;
 }
-  
+
 .task span {
     flex-grow: 1;
 }
 
-button{
+button.text{
     position: relative;
     left: 1400px;
     top: 785px;
     width: 100px;
     height: 80px;
-    border-radius: 25px;
 }

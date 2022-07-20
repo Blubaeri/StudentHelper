@@ -22,12 +22,14 @@ public class NewTaskServlet extends HttpServlet {
     // Sanitize user input to remove HTML tags and JavaScript.
     String title = Jsoup.clean(request.getParameter("title"), Whitelist.none());
     long timestamp = System.currentTimeMillis();
+    String duration = Jsoup.clean(request.getParameter("duration"), Whitelist.none());
 
     Datastore datastore = DatastoreOptions.getDefaultInstance().getService();
     KeyFactory keyFactory = datastore.newKeyFactory().setKind("Task");
     FullEntity taskEntity =
         Entity.newBuilder(keyFactory.newKey())
             .set("title", title)
+            .set("duration", duration)
             .set("timestamp", timestamp)
             .build();
     datastore.put(taskEntity);
