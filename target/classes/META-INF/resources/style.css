@@ -29,9 +29,83 @@
     outline: none;
 }
 
+.avatar{
+    width: 100px;
+    height: 100px;
+    border: 2px solid white;
+    border-radius: 50%;
+    position:absolute;
+    top: -50px;
+    left: calc(50% - 50px)
+}
+
+.regBox{
+    width:320px;
+    height: 630px;
+    background: rgba(0, 0, 0, 0.9);
+    color: white;
+    top:50%;
+    left:50%;
+    position:absolute;
+    transform:translate(-50%, -50%);
+    box-sizing:border-box;
+    border: 2px solid rgba(255, 252, 252, 0.7);
+    border-radius: 10px;
+    padding: 50px;
+    box-shadow: 10px;
+}
+.regBox h1{
+    text-align: center;
+    font-size: 27px;
+}
+.regBox p{
+    margin:0;
+    font-weight:bold;
+}
+.regBox input{
+    width:100%;
+    margin-bottom: 20px;
+    box-align:center;
+}
+.regBox input[type="text"], input[type="password"]{
+    border:none;
+    border-bottom:1px solid white;
+    background: transparent;
+    outline:none;
+    height: 40px;
+    color: white;
+    font-size: 15px;
+}
+.regBox input[type="submit"]{
+    border:none;
+    outline: none;
+    height: 40px;
+    background: white;
+    color: black;
+    font-size: 18px;
+    border-radius: 10px;
+}
+.regBox input[type="submit"]:hover{
+    cursor: pointer;
+    background: black;
+    color: white;
+    border: 1px solid white;
+}
+.regBox a{
+    text-decoration: none;
+    font-size: 13px;
+    line-height: 20px;
+    padding:2px;
+    color:darkgrey;
+    text-align: center;
+}
+.regBox a:hover{
+    text-decoration: underline;
+}
+
 .logBox{
     width:320px;
-    height: 700px;
+    height: 480px;
     background: rgba(0, 0, 0, 0.9);
     color: white;
     top:50%;
@@ -48,17 +122,6 @@
     text-align: center;
     font-size: 27px;
 }
-
-.avatar{
-    width: 100px;
-    height: 100px;
-    border: 2px solid white;
-    border-radius: 50%;
-    position:absolute;
-    top: -50px;
-    left: calc(50% - 50px)
-}
-
 .logBox p{
     margin:0;
     font-weight:bold;

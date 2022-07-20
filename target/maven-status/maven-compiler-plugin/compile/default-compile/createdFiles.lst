@@ -1,4 +1,5 @@
 main/java/com/google/sps/servlets/HelloWorldServlet.class
 main/java/com/google/sps/servlets/RegisterHandlerServlet.class
+main/java/com/google/sps/servlets/LoginHandlerServlet.class
 main/java/Task.class
 com/google/sps/ServerMain.class

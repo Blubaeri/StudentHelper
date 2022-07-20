@@ -21,9 +21,6 @@ import java.util.Base64;
 
 @WebServlet("/register-handler")
 public class RegisterHandlerServlet extends HttpServlet {
-  private static String names;
-  private static String lastNames;    
-
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
     doPost(request, response);
@@ -39,13 +36,7 @@ public class RegisterHandlerServlet extends HttpServlet {
     String encodedPassword = Base64.getEncoder().encodeToString(password.getBytes());
     boolean newUsername = true;
     boolean validUsername = true;
-    boolean validEmail = true;
-    boolean nullProperty = false;
-
-    // Print the value so you can see it in the server logs:
-    System.out.println("Your username: " + username);
-    System.out.println("Your password: " + encodedPassword);
-    System.out.println("Your timestamp: " + timestamp);
+    //boolean nullProperty = false;
 
     Datastore datastore = DatastoreOptions.getDefaultInstance().getService();
     KeyFactory keyFactory = datastore.newKeyFactory().setKind("Task");
@@ -88,14 +79,16 @@ public class RegisterHandlerServlet extends HttpServlet {
     */
 
     if (!newUsername) {
-        response.setContentType("text/html;");
-        response.getWriter().println("The username you entered already exists.");
-        response.sendRedirect("register.html");
+        response.setContentType("text/plain;");
+        response.getWriter().write("The username you entered already exists.");
     }
+    /*
     else if (username.isEmpty() || password.isEmpty()
     || confirmPassword.isEmpty()) {
-        response.sendRedirect("emptyField.html");
+        response.setContentType("text/html;");
+        response.getWriter().println("Not null.");
     }
+    */
     else{
         FullEntity taskEntity =
             Entity.newBuilder(keyFactory.newKey())
@@ -104,6 +97,11 @@ public class RegisterHandlerServlet extends HttpServlet {
                 .set("timestamp", timestamp)
                 .build();
         datastore.put(taskEntity);
+
+        // Print the value so you can see it in the server logs:
+        System.out.println("Your username: " + username);
+        System.out.println("Your password: " + encodedPassword);
+        System.out.println("Your timestamp: " + timestamp);
 
         response.sendRedirect("rightRegister.html");
     }

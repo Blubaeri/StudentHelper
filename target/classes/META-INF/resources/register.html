@@ -16,15 +16,15 @@
     -->
     <!--Added-->
       <div class="bgImg"></div>
-      <div class="logBox">
+      <div class="regBox">
       <img src="images/user.png" class="avatar">
     <!--Until here.-->
-      <h1>Register</h1>
+      <h1>Register here</h1>
       <h2>SPS Team 11</h2>
       <!--
       <p>This is the register page.</p>
       -->
-      <form action="/register-handler" method="POST">
+      <form action="/register-handler" method="POST" onsubmit="showMessage()" >
         <p>Enter your new username:</p>
         <input type="text" name="username" placeholder="Username" required="required" maxlength="16">
         <br/><br/>
@@ -34,10 +34,13 @@
         <p>Confirm your password:</p>
         <input type="password" name="confirmPassword" placeholder="Confirm password" required="required" maxlength="16">
         <br/><br/>
-        <input type="submit" onclick="showMessage();" />
+        <input type="hidden" name="vflag" value="no">
+        <input type="submit" value="Register"/>
         <p id="message-container"></p>
+        <a href="login.html">Already have an account?</a>
+        </br>
+        <a href="index.html">Go back to the index page.</a>
       </form>
-      <p>Or go back to the <a href="index.html">index page</a>.</p>
     </div>
   </body>
 </html>

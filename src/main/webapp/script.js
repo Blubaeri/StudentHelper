@@ -14,9 +14,9 @@
 
 /** Fetches stats from the server and adds them to the page. */
   async function showMessage() {
-    //const responseFromServer = await fetch('/hello');
     const responseFromServer = await fetch('/register-handler');
-    //const textFromResponse = await responseFromServer.headers();
+    //const responseFromServer = await fetch('/register-handler');
+    const textFromResponse = await responseFromServer.text();
     // The json() function returns an object that contains fields that we can
     // reference to create HTML.
     //const messages = await responseFromServer.json();
@@ -34,3 +34,38 @@
     const messageElement = document.getElementById('message-container');
     messageElement.innerText = textFromResponse;
   }
+
+  function validate(frm) {
+
+    document.getElementById("message-container").innerHTML="";
+    //Read form data:
+    let username = frm.username.value;
+    let password = frm.password.value;
+    let confirmPassword = frm.confirmPassword.value;
+    
+    //Client side form validation logic:
+    if(username == "") {
+       document.getElementById("message-container").innerHTML =
+      "<b>Username required.</b>";
+       frm.username.focus(); // focus the text box
+       return false;
+    }
+
+    if(password == "") {
+        document.getElementById("message-container").innerHTML =
+        "<b>Password required.</b>";
+        frm.password.focus(); // focus the text box
+        return false;
+    }
+
+    if(confirmPassword == "") {
+        document.getElementById("message-container").innerHTML =
+        "<b>Password confirmation required.</b>";
+        frm.confirmPassword.focus(); // focus the text box
+        return false;
+    }
+
+    return true;
+    // true => form is error free
+    // false => form validation errors
+ }
