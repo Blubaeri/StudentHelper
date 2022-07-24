@@ -38,17 +38,16 @@ public class ListRecordsServlet extends HttpServlet {
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
     Datastore datastore = DatastoreOptions.getDefaultInstance().getService();
     
-    // TODO: add userid as a filter to fetch data 
-    String userId;
-
-    // get today's date as int
+    String username = request.getParameter("username");
+    // get today's date, month, year as int
     LocalDate currentdate = LocalDate.now();
     int currentDay = currentdate.getDayOfMonth();
     int currentMonth = currentdate.getMonth().getValue();
     int currentYear = currentdate.getYear();
+    
     Query<Entity> query = Query.newEntityQueryBuilder().setKind("Record")
         .setFilter(CompositeFilter.and(
-            PropertyFilter.eq("userId", userId), PropertyFilter.eq("year", currentYear),
+            PropertyFilter.eq("username", username), PropertyFilter.eq("year", currentYear),
             PropertyFilter.eq("month", currentMonth), PropertyFilter.eq("day", currentDay)))
         .build();
     QueryResults<Entity> results = datastore.run(query);
@@ -57,8 +56,6 @@ public class ListRecordsServlet extends HttpServlet {
     HashMap<String, String> recordSum = new HashMap<String, Double>();
     while (results.hasNext()) {
       Entity entity = results.next();
-      // each Record entity should at least have the following properties: 
-      // catagory(String), time(Double), userId(String), date(String)
       String catagory = entity.getString("catagory");
       long time = entity.getDouble("time");
       if (recordSum.containsKey(catagory)) {

@@ -13,14 +13,21 @@ function drawPieChart() {
   var data = new google.visualization.DataTable();
   data.addColumn('string', 'Catagories');
   data.addColumn('number', 'Time');
-
+  
   // fetch data(JSON) from server, iterate through each catagory 
   // and add it to the DataTable for the chart
-  fetch('/time-breakdown').then(response => response.json()).then((records) => {
-    Object.keys(records).forEach(function(key) {
-      data.addRows(key, records[key]); //
-    })
-  });
+  let username = sessionStorage.getItem("username");
+  $.ajax({
+    url: '/time-breakdown',
+    data: { username: username},
+    type: 'GET',
+    dataType: "json",
+    success: function (records) {
+      for (let key in records) {
+        data.addRows(key, records[key]);
+      }
+    }
+  });​ 
   
   // Set chart options
   var options = {'title':'How you spent your time today',
