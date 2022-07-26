@@ -53,7 +53,7 @@ public class ListRecordsServlet extends HttpServlet {
     QueryResults<Entity> results = datastore.run(query);
 
     // Calculate the sum of time spent for each catagory
-    HashMap<String, String> recordSum = new HashMap<String, Double>();
+    Map<String, Double> recordSum = new HashMap<String, Double>();
     while (results.hasNext()) {
       Entity entity = results.next();
       String catagory = entity.getString("catagory");
