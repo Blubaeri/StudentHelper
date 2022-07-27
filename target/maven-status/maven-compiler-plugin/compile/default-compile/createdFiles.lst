@@ -3,3 +3,4 @@ main/java/com/google/sps/servlets/RegisterHandlerServlet.class
 main/java/com/google/sps/servlets/LoginHandlerServlet.class
 main/java/Task.class
 com/google/sps/ServerMain.class
+main/java/com/google/sps/servlets/LogoutHandlerServlet.class

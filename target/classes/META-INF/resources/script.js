@@ -13,8 +13,9 @@
 // limitations under the License.
 
 /** Fetches stats from the server and adds them to the page. */
-  async function showMessage() {
+  async function submitHandler() {
     const responseFromServer = await fetch('/register-handler');
+    //const responseFromServer = await fetch('/register-handler');
     //const responseFromServer = await fetch('/register-handler');
     const textFromResponse = await responseFromServer.text();
     // The json() function returns an object that contains fields that we can
@@ -32,7 +33,14 @@
   
     //const messagesElement = document.getElementById('messages-container');
     const messageElement = document.getElementById('message-container');
-    messageElement.innerText = textFromResponse;
+    //const formTarget = document.getElementsByTagName('form');
+
+    if (textFromResponse != "") {
+        messageElement.innerText = textFromResponse;
+    }
+    else {
+        window.location.href="rightRegister.html";
+    }
   }
 
   function validate(frm) {

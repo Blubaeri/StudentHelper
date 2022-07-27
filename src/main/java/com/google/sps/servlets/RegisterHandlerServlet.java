@@ -18,25 +18,28 @@ import java.util.List;
 import main.java.Task;
 import com.google.gson.Gson;
 import java.util.Base64;
+import javax.servlet.ServletException;
 
 @WebServlet("/register-handler")
 public class RegisterHandlerServlet extends HttpServlet {
-  @Override
-  public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    doPost(request, response);
-  }
+  boolean alex = true;
+  boolean newUsername = true;
+  boolean validUsername = true;
+  boolean samePassword = true;
 
   @Override
-  public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+  public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     // Get the values entered in the form:
     String username = request.getParameter("username");
     String password = request.getParameter("password");
     String confirmPassword = request.getParameter("confirmPassword");
     long timestamp = System.currentTimeMillis();
     String encodedPassword = Base64.getEncoder().encodeToString(password.getBytes());
-    boolean newUsername = true;
-    boolean validUsername = true;
     //boolean nullProperty = false;
+
+    newUsername = true;
+    samePassword = true;
+    validUsername = true;
 
     Datastore datastore = DatastoreOptions.getDefaultInstance().getService();
     KeyFactory keyFactory = datastore.newKeyFactory().setKind("Task");
@@ -45,51 +48,35 @@ public class RegisterHandlerServlet extends HttpServlet {
         Query.newEntityQueryBuilder().setKind("Task").setOrderBy(OrderBy.desc("timestamp")).build();
     QueryResults<Entity> results = datastore.run(query);
 
-    //List<Task> tasks = new ArrayList<>();
     while (results.hasNext()) {
         Entity entity = results.next();
 
-        /*
-        long id = entity.getKey().getId();
-        String previousNames = entity.getString("names");
-        String previousLastNames = entity.getString("lastNames");
-        */
         String previousUsername = entity.getString("username");
-        //long previousTimestamp = entity.getLong("timestamp");
-
-        /*
-        Task task = new Task(id, previousNames, previousLastNames,
-            previousUsername, previousTimestamp);
-        tasks.add(task);
-        */
 
         if (previousUsername.equals(username)) {
             newUsername = false;
             break;
         }
     }
+    
+    if (!password.equals(confirmPassword)) {
+        samePassword = false;
+    }
 
-    /*
-    for (int i = 0; i < tasks.size(); i++) {
-        if (tasks.get(i).getUsername().equals(username)) {
-            newUsername = false;
+    if ((username.charAt(0) < 65 || username.charAt(0) > 90)
+    && (username.charAt(0) < 97 || username.charAt(0) > 122))
+            validUsername = false;
+
+    for (int i = 1; i < username.length(); i++) {
+        if ((username.charAt(i) < 48 || username.charAt(i) > 57)
+        && (username.charAt(i) < 65 || username.charAt(i) > 90)
+        && (username.charAt(i) < 97 || username.charAt(i) > 122) && username.charAt(i) != 95) {
+            validUsername = false; 
             break;
         }
     }
-    */
 
-    if (!newUsername) {
-        response.setContentType("text/plain;");
-        response.getWriter().write("The username you entered already exists.");
-    }
-    /*
-    else if (username.isEmpty() || password.isEmpty()
-    || confirmPassword.isEmpty()) {
-        response.setContentType("text/html;");
-        response.getWriter().println("Not null.");
-    }
-    */
-    else{
+    if (newUsername && samePassword && validUsername) {
         FullEntity taskEntity =
             Entity.newBuilder(keyFactory.newKey())
                 .set("username", username)
@@ -104,6 +91,21 @@ public class RegisterHandlerServlet extends HttpServlet {
         System.out.println("Your timestamp: " + timestamp);
 
         response.sendRedirect("rightRegister.html");
+    }
+    else if (!validUsername) {
+        response.setContentType("text/html;");
+        response.getWriter().write("The username you entered is not valid.");
+        request.getRequestDispatcher("register.html").include(request, response);
+    }
+    else if (!newUsername) {
+        response.setContentType("text/html;");
+        response.getWriter().write("The username you entered already exists.");
+        request.getRequestDispatcher("register.html").include(request, response);
+    }
+    else if (!samePassword) {
+        response.setContentType("text/html;");
+        response.getWriter().write("Both passwords have to match.");
+        request.getRequestDispatcher("register.html").include(request, response);
     }
   }
 }

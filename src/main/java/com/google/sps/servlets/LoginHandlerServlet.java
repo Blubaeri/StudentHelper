@@ -14,18 +14,23 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Base64;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpSession; 
 
 @WebServlet("/login-handler")
 public class LoginHandlerServlet extends HttpServlet {
+  boolean existUsername = false;
+  boolean existRegister = false;
 
   @Override
-  public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+  public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     // Get the value entered in the form.
     String clientName = request.getParameter("clientName");
     String clientPassword = request.getParameter("clientPassword");
     String encodedPassword = Base64.getEncoder().encodeToString(clientPassword.getBytes());
-    boolean existUsername = false;
-    boolean existRegister = false;
+
+    existUsername = false;
+    existRegister = false;
 
     // Creating variable to interact with Datastore
     Datastore datastore = DatastoreOptions.getDefaultInstance().getService();
@@ -42,13 +47,8 @@ public class LoginHandlerServlet extends HttpServlet {
     while(results.hasNext()){
       Entity entity = results.next();
 
-      //long id = entity.getKey().getID();
       String name = entity.getString("username");
       String password = entity.getString("password");
-      //long timestamp = entity.getLong("timestamp");
-
-      //Task task = new Task(id, clientName, clientPassword, timestamp);
-      //tasks.add(task);
 
       // Check if the user exists in the database:
       if (name.equals(clientName))
@@ -61,25 +61,22 @@ public class LoginHandlerServlet extends HttpServlet {
       }
     }
 
-    /*
-    for (int i = 0; i < tasks.size(); i++){
-      if (!tasks.get(i).getUsername().equals(username)){ // sets the variable 'existUsername' to false if the username does not exist in the database
-        existUsername = false;
-      }
-    }
-    */
-
     // what happens after the check
     if (existRegister) {
-        response.sendRedirect("rightLogin.html");
+        response.getWriter().write(clientName);  
+        HttpSession session=request.getSession();  
+        session.setAttribute("username", clientName);  
+        request.getRequestDispatcher("rightLogin.html").include(request, response);
     }
     else if (existUsername && !existRegister){
-      // true - direct it to their respective page
-      response.sendRedirect("incorrectPassword.html");
+        response.setContentType("text/html;");
+        response.getWriter().write("The password you entered is incorrect.");
+        request.getRequestDispatcher("login.html").include(request, response);
     }
     else{
-      // false - direct to the 'newUser' page which directs to the register page
-      response.sendRedirect("wrongLogin.html");
+        response.setContentType("text/html;");
+        response.getWriter().write("The username you entered does not exist.");
+        request.getRequestDispatcher("login.html").include(request, response);
     }
   }
 }

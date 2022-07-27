@@ -24,17 +24,17 @@
       <!--
       <p>This is the register page.</p>
       -->
-      <form action="/register-handler" method="POST" onsubmit="showMessage()" >
+      <iframe name="dummyframe" id="dummyframe" style="display: none"></iframe>
+      <form action="register-handler" method="POST" ><!--target="dummyframe" onsubmit="submitHandler()" -->
         <p>Enter your new username:</p>
         <input type="text" name="username" placeholder="Username" required="required" maxlength="16">
         <br/><br/>
         <p>Enter your new password:</p>
-        <input type="password" name="password" placeholder="Password" required="required" maxlength="16">
+        <input type="password" name="password" placeholder="Password" required="required" minlength="8" maxlength="16">
         <br/><br/>
         <p>Confirm your password:</p>
         <input type="password" name="confirmPassword" placeholder="Confirm password" required="required" maxlength="16">
         <br/><br/>
-        <input type="hidden" name="vflag" value="no">
         <input type="submit" value="Register"/>
         <p id="message-container"></p>
         <a href="login.html">Already have an account?</a>
